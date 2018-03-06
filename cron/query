@@ -1,0 +1,6 @@
+#!/usr/bin/python3
+import os
+import sys
+
+os.system('curl https://us-central1-machine-learning-173502.cloudfunctions.net/pycall_ec2_onoff?secret=Secret Key1,Secret Key2')
+
