@@ -1,9 +1,9 @@
 # Google Cloud Functionを使う  
 参考レポジトリ：[google-cloud-function-pythonic](https://github.com/GINK03/google-cloud-function-pythonic)  
 仕事で、EC2を定期的にシャットダウンするためにGoogle Cloud FunctionとLambdaを使いました。  
-なんでGoogleCloud Function使ったんだろう？笑  
+本当はLambdaだけでも実装できるのですが、基本的にGCPの方が値段も安いし、と言うことで定期実行のトリガー部分だけLambdaにお任せする形で実装してあります。  
 
-## 仕組み その１「定期実行」  
+## 仕組み その１「定期実行」(cron)  
 lambdaでGCFを起動させて、GCFでEC2をシャットダウンする。  
 元々はGCFだけで実装予定だったけど、定期実行の仕組みがGCFになかったっぽいので、GCFの起動のためだけにlambda関数を作成した。  
 
@@ -19,13 +19,10 @@ $ cd aws_lambda_driver
 $ zip -r ../ec2_onoff.zip .
 ```
 
-## 仕組み その2「スマホのショートカットから実行」  
+## 仕組み その2「スマホのショートカットから実行」(shortcut)  
 GCFだけで実装。  
 実装後は、スマホのショートカット機能でGCFのトリガーとなるURLを登録する。  
 GCPからGCFを起動する関係か、GCPの認証を通す必要がある。  
 
 ## 実装でハマったポイント  
 - GCFを使うための認証を通すには、「サービスアカウントキー」が必要。「APIとサービス」→「認証情報」→「認証情報の作成」→「サービスアカウントキー」→「新しいサービスアカウント」→「サービスアカウント名」を適当につける→役割「Compute Engine」の「Compute Admin」→「キーのタイプ」はJSONで作成  
-
-
-
